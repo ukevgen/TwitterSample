@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">TwitterApplication</string>
+
+
+    <string name="consumer_key">CUjgUqGhmf6g1teWG9xViA1kN</string>
+    <string name="consumer_secret">vlOBqqs6X3Orpo1H3aFFVpCK5Mn6W9IFQ0W3aS0Etm4n0zrNSY
+</string>
 </resources>

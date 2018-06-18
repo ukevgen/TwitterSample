@@ -1,15 +1,19 @@
 package com.example.twitter.android.di.component.app
 
 import android.app.Activity
-import com.example.twitter.android.ui.main.di.MainActivityComponent
-import com.example.twitter.TwitterApplication
+import com.example.twitter.TwiterApplication
+import com.example.twitter.android.di.module.AndroidModule
 import com.example.twitter.android.di.module.ApplicationModule
 import com.example.twitter.android.ui.main.MainActivity
+import com.example.twitter.android.ui.main.di.MainActivityComponent
+import com.example.twitter.android.ui.splash.SplashActivity
+import com.example.twitter.android.ui.splash.di.SplashActivityComponent
 import com.example.twitter.data.cache.di.CacheModule
 import com.example.twitter.data.cache.realm.dao.di.DaoRealmModule
 import com.example.twitter.data.di.DataModule
 import com.example.twitter.data.remote.di.RemoteModule
 import com.example.twitter.data.remote.retrofit.di.NetModule
+import com.example.twitter.data.source.auth.di.AuthModule
 import dagger.Binds
 import dagger.Component
 import dagger.Module
@@ -22,6 +26,8 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [
     (ApplicationModule::class),
+    (AndroidModule::class),
+    (AuthModule::class),
     (DaoRealmModule::class),
     (DataModule::class),
     (CacheModule::class),
@@ -32,15 +38,16 @@ import javax.inject.Singleton
     (ApplicationComponent.FragmentBindingsModule::class),
     (ApplicationComponent.ServiceBindingsModule::class)
 ])
-interface ApplicationComponent : AndroidInjector<TwitterApplication> {
+interface ApplicationComponent : AndroidInjector<TwiterApplication> {
 
     @Component.Builder
-    abstract class Builder : AndroidInjector.Builder<TwitterApplication>() {
+    abstract class Builder : AndroidInjector.Builder<TwiterApplication>() {
         abstract fun applicationModule(module: ApplicationModule): Builder
     }
 
     @Module(subcomponents = [
-        (MainActivityComponent::class)
+        (MainActivityComponent::class),
+        (SplashActivityComponent::class)
     ])
     interface ActivityBindingsModule {
 
@@ -48,6 +55,11 @@ interface ApplicationComponent : AndroidInjector<TwitterApplication> {
         @IntoMap
         @ActivityKey(value = MainActivity::class)
         fun mainActivityComponentBuilder(builder: MainActivityComponent.Builder): AndroidInjector.Factory<out Activity>
+
+        @Binds
+        @IntoMap
+        @ActivityKey(value = SplashActivity::class)
+        fun splashActivityComponentBuilder(builder: SplashActivityComponent.Builder): AndroidInjector.Factory<out Activity>
 
     }
 
