@@ -1,7 +1,7 @@
 package com.example.twitter.android.di.component.app
 
 import android.app.Activity
-import com.example.twitter.TwiterApplication
+import com.example.twitter.TwitterApplication
 import com.example.twitter.android.di.module.AndroidModule
 import com.example.twitter.android.di.module.ApplicationModule
 import com.example.twitter.android.ui.main.MainActivity
@@ -38,10 +38,10 @@ import javax.inject.Singleton
     (ApplicationComponent.FragmentBindingsModule::class),
     (ApplicationComponent.ServiceBindingsModule::class)
 ])
-interface ApplicationComponent : AndroidInjector<TwiterApplication> {
+interface ApplicationComponent : AndroidInjector<TwitterApplication> {
 
     @Component.Builder
-    abstract class Builder : AndroidInjector.Builder<TwiterApplication>() {
+    abstract class Builder : AndroidInjector.Builder<TwitterApplication>() {
         abstract fun applicationModule(module: ApplicationModule): Builder
     }
 

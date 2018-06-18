@@ -14,7 +14,7 @@ class SharedPreferenceProvider @Inject constructor(private val sharedPreferences
         const val TAG = "SharedPreferenceProvider"
 
         val KEY_USER_NAME = "com.example.twitter.key_name"
-        val KEY_ID = "com.example.twitter.key_id"
+        val KEY_USER_ID = "com.example.twitter.key_id"
         val KEY_TOKEN_KEY = "com.example.twitter.key_token_key"
         val KEY_SECRET_KEY = "com.example.twitter.key_secret_key"
     }

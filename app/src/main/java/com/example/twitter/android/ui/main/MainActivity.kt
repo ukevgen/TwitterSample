@@ -5,6 +5,8 @@ import com.example.twitter.android.ui.BaseActivity
 import com.example.twitter.presentation.main.MainPresenter
 import com.example.twitter.presentation.main.MainView
 import com.example.twitter.twitterapplication.R
+import com.twitter.sdk.android.core.Twitter
+import com.twitter.sdk.android.core.TwitterApiClient
 import javax.inject.Inject
 
 
@@ -18,6 +20,9 @@ class MainActivity : BaseActivity(), MainView {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
+        presenter.takeView(this)
+
+        TwitterApiClient()
 
     }
 

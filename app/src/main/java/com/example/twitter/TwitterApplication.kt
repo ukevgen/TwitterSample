@@ -20,7 +20,7 @@ import io.realm.Realm
 import javax.inject.Inject
 
 
-class TwiterApplication : Application(), HasActivityInjector, HasSupportFragmentInjector, HasServiceInjector {
+class TwitterApplication : Application(), HasActivityInjector, HasSupportFragmentInjector, HasServiceInjector {
 
     @Inject lateinit var androidInjector: DispatchingAndroidInjector<Activity>
     @Inject lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>

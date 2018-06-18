@@ -1,6 +1,7 @@
 package com.example.twitter.data.remote.retrofit.di
 
-import com.google.gson.Gson
+import com.example.twitter.data.remote.retrofit.interceptor.TwitterHeaderInterceptor
+import com.example.twitter.data.remote.retrofit.service.UserTimeLineService
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -24,17 +25,20 @@ class NetModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
+    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor,
+                            headerInterceptor: TwitterHeaderInterceptor): OkHttpClient =
             OkHttpClient.Builder()
                     .addInterceptor(loggingInterceptor)
+                    .addInterceptor(headerInterceptor)
                     .build()
 
 
     @Singleton
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .baseUrl("https://api.twitter.com/1.1/")
+                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)
                 .build()
@@ -44,4 +48,7 @@ class NetModule {
     // Services
 
 
+    @Singleton
+    @Provides
+    fun provideUserTimeLineService(retrofit: Retrofit): UserTimeLineService = retrofit.create(UserTimeLineService::class.java)
 }
