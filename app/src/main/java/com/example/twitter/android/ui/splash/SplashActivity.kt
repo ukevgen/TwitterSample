@@ -33,6 +33,7 @@ class SplashActivity : BaseActivity(), SplashView {
 
         btLogin.callback = object : Callback<TwitterSession>() {
             override fun success(result: Result<TwitterSession>) {
+
                 presenter.updateUserCredential(
                         result.data.userId,
                         result.data.userName ?: EmptyConstants.EMPTY_STRING

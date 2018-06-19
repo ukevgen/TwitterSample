@@ -9,6 +9,7 @@ interface UserTimeLineService {
 
     @GET("statuses/user_timeline.json?screen_name=twitterapi")
     fun getUserTimeLine(@Query("user_id") userId: Long,
-                        @Query("since_id") sinceId: Int
+                        @Query("since_id") sinceId: Int,
+                        @Query("screen_name") screen_name: String
     ): Single<ResponseBody>
 }

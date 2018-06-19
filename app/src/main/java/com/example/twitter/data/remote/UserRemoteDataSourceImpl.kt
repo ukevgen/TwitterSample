@@ -11,8 +11,8 @@ class UserRemoteDataSourceImpl @Inject constructor(private val userTimeLineServi
 ) : UserRemoteDataSource {
     override fun getUserTimeLine(): Completable {
         return credentialsProvider.getUserCredentials()
-                .flatMapCompletable { cred ->
-                    userTimeLineService.getUserTimeLine(cred.id, 500)
+                .flatMapCompletable { userCredentials ->
+                    userTimeLineService.getUserTimeLine(userCredentials.id, 500, userCredentials.name)
                             .toCompletable()
 
                 }

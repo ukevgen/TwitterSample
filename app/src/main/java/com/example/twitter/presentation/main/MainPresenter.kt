@@ -1,30 +1,33 @@
 package com.example.twitter.presentation.main
 
-import com.example.twitter.domain.usecase.GetUserTimeLineUseCase
+import com.example.twitter.domain.model.UserCredentials
+import com.example.twitter.domain.usecase.GetUserCredentialUseCase
 import com.example.twitter.presentation.BasePresenter
-import com.google.gson.annotations.Until
-import io.reactivex.observers.DisposableCompletableObserver
+import io.reactivex.observers.DisposableSingleObserver
 import javax.inject.Inject
 
-class MainPresenter @Inject constructor(val getUserTimeLineUseCase: GetUserTimeLineUseCase) : BasePresenter<MainView>() {
+class MainPresenter @Inject constructor(val getUserCredentialUseCase: GetUserCredentialUseCase) : BasePresenter<MainView>() {
 
     override fun onTakeView(view: MainView) {
         super.onTakeView(view)
-
-     getUserTimeLineUseCase.execute(object : DisposableCompletableObserver() {
-         override fun onComplete() {
-             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-         }
-
-         override fun onError(e: Throwable) {
-             e.printStackTrace()
-         }
-     }, Unit)
+        subscribeToTweets()
     }
 
     override fun onDropView() {
-        getUserTimeLineUseCase.dispose()
+        getUserCredentialUseCase.dispose()
         super.onDropView()
     }
 
+    private fun subscribeToTweets() {
+        getUserCredentialUseCase.execute(object : DisposableSingleObserver<UserCredentials>() {
+            override fun onSuccess(user: UserCredentials) {
+                view?.renderUserTimeLine(user)
+            }
+
+            override fun onError(e: Throwable) {
+                e.printStackTrace()
+            }
+
+        }, Unit)
+    }
 }
