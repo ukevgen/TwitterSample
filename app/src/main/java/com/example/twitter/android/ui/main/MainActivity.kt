@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.DividerItemDecoration
 import com.example.twitter.android.ui.BaseActivity
 import com.example.twitter.domain.model.UserCredentials
 import com.example.twitter.presentation.main.MainPresenter
@@ -86,11 +87,13 @@ class MainActivity : BaseActivity(), MainView {
                 .setViewStyle(R.style.tw__TweetLightWithActionsStyle)
                 .build()
 
+        recycler.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         recycler.adapter = adapter
+
     }
 
     override fun renderTitle(name: String) {
-        title = name
+        supportActionBar?.title = name
     }
 
     override fun renderCreateTwitActivity() {

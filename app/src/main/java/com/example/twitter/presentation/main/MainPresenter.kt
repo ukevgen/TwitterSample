@@ -22,6 +22,7 @@ class MainPresenter @Inject constructor(val getUserCredentialUseCase: GetUserCre
         getUserCredentialUseCase.execute(object : DisposableSingleObserver<UserCredentials>() {
             override fun onSuccess(user: UserCredentials) {
                 view?.renderUserTimeLine(user)
+                view?.renderTitle(user.name)
             }
 
             override fun onError(e: Throwable) {
