@@ -5,7 +5,7 @@ import com.example.twitter.android.preference.SharedPreferenceProvider.Companion
 import com.example.twitter.android.preference.SharedPreferenceProvider.Companion.KEY_USER_ID
 import com.example.twitter.android.preference.SharedPreferenceProvider.Companion.KEY_USER_NAME
 import com.example.twitter.data.source.preference.AppSharedPreferences
-import com.example.twitter.domain.model.UserCredentials
+import com.example.twitter.domain.model.User
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.Function4
@@ -18,18 +18,18 @@ class UserCredentialsProvider @Inject constructor(private val preference: AppSha
                 .andThen(preference.putString(KEY_USER_NAME, name))
     }
 
-//    override fun updateUserCredential(id: Long, name: String, key: String, token: String): Completable {
+//    override fun updateUser(id: Long, name: String, key: String, token: String): Completable {
 //
 //    }
 
-    override fun getUserCredentials(): Single<UserCredentials> {
+    override fun getUserCredentials(): Single<User> {
         return Single.zip(
                 preference.getString(KEY_USER_NAME),
                 preference.getString(KEY_TOKEN_KEY),
                 preference.getString(KEY_SECRET_KEY),
                 preference.getLong(KEY_USER_ID),
-                Function4<String, String, String, Long, UserCredentials> { name, token, secret, id ->
-                    UserCredentials(id, name)
+                Function4<String, String, String, Long, User> { name, token, secret, id ->
+                    User(id, name)
                 }
         )
     }

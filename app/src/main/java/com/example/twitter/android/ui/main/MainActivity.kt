@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.DividerItemDecoration
 import com.example.twitter.android.ui.BaseActivity
-import com.example.twitter.domain.model.UserCredentials
+import com.example.twitter.domain.model.User
 import com.example.twitter.presentation.main.MainPresenter
 import com.example.twitter.presentation.main.MainView
 import com.example.twitter.twitterapplication.R
@@ -77,7 +77,7 @@ class MainActivity : BaseActivity(), MainView {
         super.onDestroy()
     }
 
-    override fun renderUserTimeLine(user: UserCredentials) {
+    override fun renderUserTimeLine(user: User) {
         val userTimeline = UserTimeline.Builder()
                 .userId(user.id)
                 .screenName(user.name).build()

@@ -1,12 +1,12 @@
 package com.example.twitter.presentation.main
 
-import com.example.twitter.domain.model.UserCredentials
-import com.example.twitter.domain.usecase.GetUserCredentialUseCase
+import com.example.twitter.domain.model.User
+import com.example.twitter.domain.usecase.GetUserUseCase
 import com.example.twitter.presentation.BasePresenter
 import io.reactivex.observers.DisposableSingleObserver
 import javax.inject.Inject
 
-class MainPresenter @Inject constructor(val getUserCredentialUseCase: GetUserCredentialUseCase) : BasePresenter<MainView>() {
+class MainPresenter @Inject constructor(val getUserCredentialUseCase: GetUserUseCase) : BasePresenter<MainView>() {
 
     override fun onTakeView(view: MainView) {
         super.onTakeView(view)
@@ -19,8 +19,8 @@ class MainPresenter @Inject constructor(val getUserCredentialUseCase: GetUserCre
     }
 
     private fun subscribeToTweets() {
-        getUserCredentialUseCase.execute(object : DisposableSingleObserver<UserCredentials>() {
-            override fun onSuccess(user: UserCredentials) {
+        getUserCredentialUseCase.execute(object : DisposableSingleObserver<User>() {
+            override fun onSuccess(user: User) {
                 view?.renderUserTimeLine(user)
                 view?.renderTitle(user.name)
             }
