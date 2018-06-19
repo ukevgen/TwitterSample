@@ -42,7 +42,7 @@ class MainActivity : BaseActivity(), MainView {
                     toast(TweetUploadService.UPLOAD_FAILURE)
                 }
                 TweetUploadService.TWEET_COMPOSE_CANCEL == intent.action -> {
-                    toast(TweetUploadService.TWEET_COMPOSE_CANCEL)
+//                    toast(TweetUploadService.TWEET_COMPOSE_CANCEL)
                 }
             }
         }
